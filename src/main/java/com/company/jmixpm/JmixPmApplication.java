@@ -1,6 +1,8 @@
 package com.company.jmixpm;
 
 import com.google.common.base.Strings;
+import io.jmix.core.CoreProperties;
+import io.jmix.localfs.LocalFileStorage;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -45,5 +47,10 @@ public class JmixPmApplication {
                 + "http://localhost:"
                 + environment.getProperty("local.server.port")
                 + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
+    }
+
+    @Bean
+    public LocalFileStorage secondStorage(CoreProperties coreProperties) {
+        return new LocalFileStorage("myFs2", coreProperties.getWorkDir() + "myFs2");
     }
 }
